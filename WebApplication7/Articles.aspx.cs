@@ -25,10 +25,24 @@ namespace WebApplication7
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = "insert into Articles(articleTitle,ArticleText) values('"+this.TextBox1.Text+"','"+this.TextBox2.Text+"')";
+                command.CommandText = "insert into Articles(articleTitle,ArticleText) values('" + this.TextBox1.Text + "','" + this.TextBox2.Text + "')";
                 command.ExecuteNonQuery();
             }
             this.Response.Redirect("Articles.aspx");
+        }
+
+        protected void GetSelectedRecords(object sender, EventArgs e)
+        {
+            this.Response.Write("<h3>Selected records</h3>");
+
+            foreach (GridViewRow row in this.GridView1.Rows)
+            {
+                var chk = (CheckBox) row.FindControl("chkSelect");
+                if (chk.Checked)
+                {
+                }
+                this.Response.Redirect("CheckIn.aspx");
+            }
         }
     }
 }
