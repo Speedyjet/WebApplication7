@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CheckIn.aspx" />
+    <Content Include="ListOfOrders.aspx" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -100,7 +101,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ListOfOrders.aspx.cs">
+      <DependentUpon>ListOfOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListOfOrders.aspx.designer.cs">
+      <DependentUpon>ListOfOrders.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\ArticleModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

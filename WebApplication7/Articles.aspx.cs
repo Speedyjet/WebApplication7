@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Web.Configuration;
+using WebApplication7.Models;
 
 namespace WebApplication7
 {
@@ -31,17 +32,36 @@ namespace WebApplication7
             this.Response.Redirect("Articles.aspx");
         }
 
-        protected void GetSelectedRecords(object sender, EventArgs e)
+        protected void GetSelectedRecords(object sender, EventArgs e) //TODO add orderModel etc.
         {
-            this.Response.Write("<h3>Selected records</h3>");
-
+            var order = new OrderModel();
+            var articlesInCart = new List<int>();
             foreach (GridViewRow row in this.GridView1.Rows)
             {
                 var chk = (CheckBox) row.FindControl("chkSelect");
                 if (chk.Checked)
                 {
+                    var dataKey = this.GridView1.DataKeys[Convert.ToInt32(row.Cells[2].Text)];
+                    if (dataKey != null)
+                        articlesInCart.Add(Convert.ToInt32(dataKey.Value));
                 }
+                Session["articles"] = articlesInCart;
                 this.Response.Redirect("CheckIn.aspx");
+            }
+            order.Articles = articlesInCart;
+            order.ClientID = HttpContext.Current.GetHashCode();
+
+            var connectionFromConfiguration = WebConfigurationManager.ConnectionStrings["FlexBricksTestConnectionString"].ToString();
+            using (var dbconnection = new SqlConnection(connectionFromConfiguration))
+            {
+                try
+                {
+                    dbconnection.Open();
+                }
+                catch (SqlException ex)
+                {
+
+                }
             }
         }
     }
